@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.domain">
+	<class name="Favorite" table="t_favorite" lazy="true">
+		<id name="id" column="id" type="int">
+			<generator class="foreign"><!-- foreign主键生成器 -->
+				<param name="property">user</param><!--类属性 -->
+			</generator>
+		</id>
+		<property name="number" column="number" type="java.lang.Integer"></property>
+		<!-- 在即使主键又是外键的一方，加constrained表示约束 -->
+		<one-to-one name="user" class="com.domain.User" constrained="true" lazy="proxy" fetch="select"></one-to-one>
+		<set name="favoriteItems" lazy="false" inverse="false" cascade="all-delete-orphan">
+			<key column="fid"></key>
+			<one-to-many class="FavoriteItem" />
+		</set> 
+	</class>
+</hibernate-mapping>

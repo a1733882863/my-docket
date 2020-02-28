@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <hibernate-mapping package="com.domain">
+ 	<class name="User" table="t_user" dynamic-insert="true"  dynamic-update="true">
+		<id name="id" column="id" type="int"   >
+			<generator class="native"></generator>
+		</id> 	
+		<discriminator column="type" type="string"></discriminator>
+		<property name="name" column="name"  update="false" type="java.lang.String" ></property>
+		<property name="password" column="password" type="java.lang.String" ></property>
+		<property name="gender" column="gender" type="java.lang.String" ></property>
+		<property name="email" column="email" update="false" type="java.lang.String" ></property>
+		<property name="telephone" column="telephone" type="java.lang.String" ></property>
+		<property name="activeCode" column="activeCode" update="false" type="java.lang.String" ></property>
+		<property name="state" column="state" type="java.lang.Integer" ></property>
+		<set name="orders" lazy="true"  inverse="false"  cascade="all-delete-orphan" >
+			<key column="uid"></key>
+			<one-to-many class="Order" />
+		</set>
+		 <one-to-one name="favorite" class="Favorite" cascade="all"></one-to-one>
+		 <subclass name="Guest" discriminator-value="Ordinary"></subclass>
+		<subclass name="Admin" discriminator-value="Admin"></subclass>
+ 	</class>
+ </hibernate-mapping>

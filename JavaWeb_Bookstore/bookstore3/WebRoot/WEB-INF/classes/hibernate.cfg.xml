@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+	<property name="hibernate.connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="hibernate.connection.username">root</property>
+	<property name="hibernate.connection.password">123456</property>
+	<property name="hibernate.connection.url">
+		jdbc:mysql://localhost:3306/bookstore3?useUnicode=true&amp;characterEncoding=utf8
+	</property>
+
+	<property name="show_sql">true</property>
+	<property name="format_sql">true</property>
+	<property name="hbm2ddl.auto">update</property>
+	<property name="hibernate.dialect">
+		org.hibernate.dialect.MySQLDialect
+	</property>
+	<!--使用C3P0连接池 -->
+	<property name="hibernate.connection.provider_class">
+		org.hibernate.connection.C3P0ConnectionProvider
+	</property>
+	<property name="hibernate.c3p0.max_size">5</property>
+	<property name="hibernate.c3p0.min_size">2</property>
+	<property name="hibernate.connection.autocommit">true</property>
+	<property name="hibernate.current_session_context_class">
+		thread
+	</property>
+	<!-- 配置使用二级缓存 --> 
+	<property name="hibernate.cache.use_second_level_cache">true</property>
+	<!-- 配置二级缓存的实现类 : EHCache -->
+	<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+	<!-- 开启查询缓存对hql进行查询缓存  在 -->
+	 <property name="hibernate.cache.use_query_cache">true</property>
+	<mapping resource="com/domain/User.hbm.xml" />
+	<mapping resource="com/domain/Order.hbm.xml" />
+	<mapping resource="com/domain/Product.hbm.xml"/>
+	<mapping resource="com/domain/Orderitem.hbm.xml"/>
+	<mapping resource="com/domain/Favorite.hbm.xml"/>
+	 <mapping resource="com/domain/Message.hbm.xml"/>
+	 <mapping resource="com/domain/Revert.hbm.xml"/>
+	 <mapping resource="com/domain/FavoriteItem.hbm.xml"/>  
+	  <mapping resource="com/domain/Purse.hbm.xml"/>  
+	<!--  <class-cache usage="read-write" class="com.domain.Product"/> -->
+	 <class-cache usage="read-write" class="com.domain.User"/>
+	  <class-cache usage="read-write" class="com.domain.Order"/>
+	  <class-cache usage="read-write" class="com.domain.Orderitem"/>
+	  <class-cache usage="read-write" class="com.domain.Product"/>
+	<!--  <class-cache usage="read-write" class="com.domain.FavoriteItem"/>
+	 <collection-cache usage="read-write" collection="com.domain.Favorite.favoriteItems"/> -->
+	 <collection-cache usage="read-write" collection="com.domain.User.orders"/>
+	 <collection-cache usage="read-write" collection="com.domain.Order.orderitem"/>
+</session-factory>
+</hibernate-configuration>

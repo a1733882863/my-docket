@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <hibernate-mapping package="com.domain">
+ 	<class name="Purse" table="t_purse" lazy="true">  
+        <id name="id">  
+            <generator class="native" ></generator>  
+        </id> 
+        <version name="version"></version>
+        <property name="money"></property>  
+        <!-- 由于它是一对一的唯一外键关联，它是多对一关联的特例，注释可以直接写成多对一关联-->  
+        <many-to-one name="user" class="User" column="uid" unique="true"></many-to-one>      
+    </class>  
+ </hibernate-mapping>

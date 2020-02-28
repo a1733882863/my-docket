@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <hibernate-mapping package="com.domain" >
+ 	<class name="Order" table="t_order"  lazy="false">
+		<id name="id" column="id" type="int"   >
+			<generator class="native">	
+			</generator>
+		</id> 	
+	 	<property name="money" column="money" type="java.lang.Double" ></property>
+		<property name="receiverAddress" column="receiverAddress" type="java.lang.String" ></property>
+		<property name="receiverName" column="receiverName" type="java.lang.String" ></property>
+		<property name="receiverPhone" column="receiverPhone" type="java.lang.String" ></property>
+		<property name="paystate" column="paystate" type="java.lang.Integer" ></property>
+		 <property name="ordertime" column="ordertime" type="java.sql.Date" ></property> 
+		 
+		<!-- 在即使主键又是外键的一方，加constrained表示约束 -->
+		<many-to-one name="user"  column= "uid" class="User" ></many-to-one>
+		<set name="orderitem" lazy="false"  inverse="false" cascade="all-delete-orphan" batch-size="5">
+			<key column="oid"></key>
+			<one-to-many class="Orderitem" />
+		</set>
+ 	</class>
+ </hibernate-mapping>

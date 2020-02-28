@@ -1,0 +1,1 @@
+admin里的search模糊查询 不能用hql查询，因为hql模糊查询不接受汉字
